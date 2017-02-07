@@ -3,6 +3,11 @@
     src: url(./assets/fonts/cham.ttf);
 }
 
+@font-face {
+    font-family: code;
+    src: url(./assets/fonts/codeBold.ttf);
+}
+
 @media (max-width: 750px) {
     iframe {
         width: 100% !important;
@@ -14,6 +19,7 @@ html, body {
     margin: 0px;
     height: calc(100% - 4px);
     font-family: cham;
+    background-color: #a8a8a8;
 }
 
 #MobileStart {
@@ -32,7 +38,7 @@ html, body {
     top: 50%;
     background-color: pink;
     color: crimson;
-    border-radius: 3px;
+    border-radius: 5px;
     margin-top: -40px;
     margin-left: -40px;
     width: 80px;
@@ -115,7 +121,7 @@ html, body {
 
 #Content .Slider.x {
     position: relative;
-    height: 94px;
+    height: 54px;
     width: 100%;
     margin-top: 3px;
 }
@@ -137,14 +143,14 @@ html, body {
 }
 
 #Content .Dragger {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 50px;
     position: absolute;
-    background-color: black;
+    background-color: #3f3f3f;
     border-radius: 5%;
     z-index: 1;
-    margin-top: -2px;
-    border: 1px solid white;
+    margin-top: 2px;
+    border: 1px solid #696969;
     cursor: -webkit-grab;
 }
 
@@ -154,12 +160,12 @@ html, body {
     position: relative;
     text-align: center;
     font-size: 12px;
-    line-height: 90px;
+    line-height: 50px;
     color: crimson;
 }
 
 #Content .Dragger:hover {
-    background-color: #fef3f8;
+    background-color: #696969;
     color: white;
 }
 
@@ -169,7 +175,7 @@ html, body {
 }
 
 #Content .Dragger.is-pointer-down #Name {
-    color: #1EDF3E;
+    color: #696969;
 }
 
 #Content .Axis {
@@ -185,6 +191,7 @@ html, body {
 
 #Content #xAxis {
     width: calc(100% - 6px);
+    background-color: #3f3f3f;
 }
 
 #Content #yAxis {
@@ -192,34 +199,41 @@ html, body {
 }
 
 #Content .Button {
-    width: 20%;
-    margin: 5px auto;
-    height: 60px;
-    background-color: #fef3f8;
-    line-height: 57px;
-    box-shadow: 2px 2px 0px crimson;
+    width: 30%;
+    font-family: code;
+    margin: 0 auto;
+    margin-left: 10px;
+    margin-right: 8px;
+    height: 50px;
+    background-color: #3f3f3f;
+    line-height: 50px;
+    box-shadow: 0px 5px 0px 0px #545454;
     color: crimson;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    position: relative;
+    display: inline-block;
 }
 
 #Content .Button:hover {
-    color: #22DBC;
-    background-color: #fde2ee;
+    color: crimson;
+    background-color: #696969;
 }
 
 #Content .Button:hover:active, #Content #Content .Button:hover:active.Active {
-    color: #22DBC0;
-    background-color: #ED33CF;
+    color: crimson;
+    background-color: #3f3f3f;
 }
 
 #Content .Button.Toggle.Active {
     box-sizing: border-box;
-    box-shadow: 2px 2px 2px pink;
-    line-height: 57px;
-    color: pink;
-    background-color: crimson;
+    line-height: 50px;
+    color: #696969;
+    background-color: #7e7e7e;
+    transform: translate(0px, 5px);
+    -webkit-transform: translate(0px, 5px);
+    box-shadow: 0px 1px 0px 0px;
 }
 
 #Content .Transport {
@@ -227,7 +241,7 @@ html, body {
     height: 30px;
     background-color: black;
     line-height: 30px;
-    color: white;
+    color: #a8a8a8;
     border-radius: 10px;
     margin-top: 3px;
     position: relative;
@@ -272,4 +286,38 @@ html, body {
 #Loading.Loaded {
     pointer-events: none;
     opacity: 0;
+}
+
+#Sliders {
+  width: 48%;
+  margin-left: 10px;
+  position: relative;
+  float: left;
+}
+
+#Sliders2 {
+  width: 45%;
+  margin-right: 10px;
+  position: relative;
+  float: right;
+}
+
+#Beats {
+  position: relative;
+  margin: auto;
+  width: 90%;
+}
+
+#Holder {
+  position: relative;
+  margin-top: 20px;
+  height: 200px;
+  width: auto;
+}
+
+#ButtonHome {
+  text-align: center;
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
 }

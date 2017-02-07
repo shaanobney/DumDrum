@@ -11,10 +11,12 @@
         fadeOut: 0.1
     }).toMaster();
 
+
     var feedbackDelaySend = keys.send("feedbackDelay", -Infinity);
     var chebySend = keys.send("cheby", -Infinity);
     var reverbSend = keys.send("reverb", -Infinity);
     var bitCrushSend = keys.send("bitCrush", -Infinity);
+    var pitchShiftSend = keys.send("pitchShift", -Infinity);
 
     var bitCrush = new Tone.BitCrusher(2).receive("bitCrush").toMaster();
 
@@ -22,6 +24,15 @@
       "delayTime" : ("1 @ 2m"),
       "feedback" : 0.5,
     }).receive("feedbackDelay").toMaster();
+
+    var pitchShift = new Tone.PitchShift({
+    	"pitch" : 2,
+    	"windowSize" : 0.1,
+    	"delayTime" : 0,
+    	"feedback" : .4,
+    }).receive("pitchShift").toMaster();
+
+    console.log(pitchShift)
 
     var cheby = new Tone.Chebyshev({
       "order" : 50,
@@ -40,7 +51,7 @@
         for (var i = 0; i < 6; i++) {
             if (column[i] === 1) {
                 //slightly randomized velocities
-                var vel = Math.random() * 0.5 + 0.5;
+                var vel = 1;
                 keys.start(noteNames[i], time, 0, "32n", 0, vel);
             }
         }
@@ -74,7 +85,7 @@
     Tone.Transport.start();
 
     nx.onload = function () {
-        nx.colorize("crimson");
+        nx.colorize("#696969");
 
         matrix1.col = 24;
         matrix1.init();
@@ -86,6 +97,7 @@
 
         Interface.Slider({
             name: "BPM",
+            parent: $("#Beats"),
             min: 10,
             max: 300,
             value: Tone.Transport.bpm.value,
@@ -108,26 +120,26 @@
         Interface.Slider({
             name: "DELAY TIME",
             parent: $("#Sliders"),
-            min: .01,
+            min: 0,
             max: 1.0,
             drag: function (val) {
                 feedbackDelay.delayTime.value = val;
             }
         });
 
-        // Interface.Slider({
-        //     name: "DELAY GAIN",
-        //     parent: $("#Sliders"),
-        //     min: 0,
-        //     max: 50,
-        //     drag: function (val) {
-        //         delaySend.gain.value = val;
-        //     }
-        // });
+        Interface.Slider({
+            name: "PITCH DELAY",
+            parent: $("#Sliders"),
+            min: 0,
+            max: 1,
+            drag: function (val) {
+                pitchShift.delayTime.value = val;
+            }
+        });
 
         Interface.Slider({
             name: "REVERB DAMP",
-            parent: $("#Sliders"),
+            parent: $("#Sliders2"),
             min: 100,
             max: 8000,
             drag: function (val) {
@@ -137,7 +149,7 @@
 
         Interface.Slider({
             name: "REVERB GAIN",
-            parent: $("#Sliders"),
+            parent: $("#Sliders2"),
             min: 0,
             max: 10,
             drag: function (val) {
@@ -146,8 +158,9 @@
         });
 
         Interface.Button({
+            parent: $("#ButtonHome"),
             text: "BITCRUSH",
-            activeText: "STOP CRUSHIN'",
+            activeText: "BITCRUSH",
             type: "toggle",
             start: function (val) {
                 bitCrushSend.gain.value = -20;
@@ -158,8 +171,22 @@
         });
 
         Interface.Button({
+            parent: $("#ButtonHome"),
+            text: "PITCHSHIFT",
+            activeText: "PITCHSHIFT",
+            type: "toggle",
+            start: function (val) {
+                pitchShiftSend.gain.value = 0;
+            },
+            end: function (val) {
+                pitchShiftSend.gain.value = -100;
+            }
+        });
+
+        Interface.Button({
+            parent: $("#ButtonHome"),
             text: "DELAY",
-            activeText: "END DELAY",
+            activeText: "DELAY",
             type: "toggle",
             start: function (val) {
                 feedbackDelaySend.gain.value = 0;
@@ -170,7 +197,8 @@
         });
 
         Interface.Button({
-            text: "PATTERN START", activeText: "STOP", type: "toggle", key: 32, //spacebar
+            parent: $("#ButtonHome"),
+            text: "START", activeText: "STOP", type: "toggle", key: 32, //spacebar
             start: function () {
                 loop.start();
             },
